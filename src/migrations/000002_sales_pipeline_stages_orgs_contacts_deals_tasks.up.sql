@@ -44,7 +44,6 @@ create index on sales.contacts (updated_at);
 
 create table sales.deals (
     id                    text           primary key,
-    pipeline_id           text           not null references sales.pipelines(id),
     stage_id              text           not null references sales.pipeline_stages(id),
     owner_id              text           references sales.users(id),
     source_id             text           references sales.sources(id),
@@ -64,7 +63,6 @@ create table sales.deals (
     updated_at            timestamptz    not null
 );
 
-create index on sales.deals (pipeline_id);
 create index on sales.deals (stage_id);
 create index on sales.deals (owner_id);
 create index on sales.deals (source_id);
