@@ -77,6 +77,16 @@ erDiagram
         timestamptz updated_at
     }
 
+    pipeline_stages {
+        text id PK
+        text name
+        text description
+        text objective
+        integer display_order
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
     products {
         text id PK
         text name
@@ -118,20 +128,8 @@ erDiagram
         timestamptz updated_at
     }
 
-    pipeline_stages {
-        text id PK
-        text pipeline_id FK
-        text name
-        text description
-        text objective
-        integer display_order
-        timestamptz created_at
-        timestamptz updated_at
-    }
-
     organizations {
         text id PK
-        text owner_id FK
         text name
         text description
         text url
@@ -142,7 +140,6 @@ erDiagram
 
     contacts {
         text id PK
-        text organization_id FK
         text name
         text job_title
         jsonb emails
@@ -155,13 +152,6 @@ erDiagram
 
     deals {
         text id PK
-        text pipeline_id FK
-        text stage_id FK
-        text owner_id FK
-        text source_id FK
-        text campaign_id FK
-        text lost_reason_id FK
-        text organization_id FK
         text name
         numeric recurrence_price
         numeric one_time_price
@@ -175,25 +165,8 @@ erDiagram
         timestamptz updated_at
     }
 
-    tasks {
-        text id PK
-        text created_by_id FK
-        text completed_by_id FK
-        text deal_id FK
-        text name
-        text description
-        text type
-        text status
-        timestamptz due_date
-        timestamptz completed_at
-        timestamptz created_at
-        timestamptz updated_at
-    }
-
     deal_products {
         text id PK
-        text deal_id FK
-        text product_id FK
         numeric price
         numeric quantity
         text discount_type
@@ -206,63 +179,47 @@ erDiagram
 
     deal_notes {
         text id PK
-        text deal_id FK
-        text user_id FK
         text description
         timestamptz registered_at
         timestamptz pinned_at
-        text edited_by_id FK
         timestamptz edited_at
     }
 
-    deal_contacts {
-        text deal_id FK
-        text contact_id FK
-    }
-
-    organization_segments {
-        text organization_id FK
-        text segment_id FK
-    }
-
-    organization_followers {
-        text organization_id FK
-        text user_id FK
-    }
-
-    team_users {
-        text team_id FK
-        text user_id FK
-    }
-
-    task_owners {
-        text task_id FK
-        text user_id FK
+    tasks {
+        text id PK
+        text name
+        text description
+        text type
+        text status
+        timestamptz due_date
+        timestamptz completed_at
+        timestamptz created_at
+        timestamptz updated_at
     }
 
     pipelines ||--o{ pipeline_stages : "has"
-    pipelines ||--o{ deals : "has"
-    pipeline_stages ||--o{ deals : "has"
-    users ||--o{ organizations : "owns"
-    users ||--o{ deals : "owns"
-    users ||--o{ tasks : "created_by"
-    users ||--o{ tasks : "completed_by"
-    sources ||--o{ deals : "source"
-    campaigns ||--o{ deals : "campaign"
-    lost_reasons ||--o{ deals : "lost_reason"
-    organizations ||--o{ contacts : "has"
-    organizations ||--o{ deals : "has"
-    deals ||--o{ tasks : "has"
-    deals ||--o{ deal_products : "has"
-    products ||--o{ deal_products : "in"
-    deals ||--o{ deal_notes : "has"
+    pipelines ||--o{ deals : "contains"
+    pipeline_stages o|--o{ deals : "current_stage"
+    users o|--o{ organizations : "owns"
+    users o|--o{ deals : "owns"
     users ||--o{ deal_notes : "authored"
-    users ||--o{ deal_notes : "edited"
-    deals }o--o{ contacts : "deal_contacts"
-    organizations }o--o{ segments : "organization_segments"
-    organizations }o--o{ users : "organization_followers"
-    teams }o--o{ users : "team_users"
-    tasks }o--o{ users : "task_owners"
+    users o|--o{ deal_notes : "edited"
+    users ||--o{ tasks : "created"
+    users o|--o{ tasks : "completed"
+    sources o|--o{ deals : "sourced_from"
+    campaigns o|--o{ deals : "attributed_to"
+    lost_reasons o|--o{ deals : "lost_by"
+    organizations o|--o{ contacts : "has"
+    organizations o|--o{ deals : "belongs_to"
+    deals ||--o{ deal_products : "has"
+    products ||--o{ deal_products : "references"
+    deals ||--o{ deal_notes : "has"
+    deals o|--o{ tasks : "has"
+    deals }o--o{ contacts : "links"
+    organizations }o--o{ segments : "classified_as"
+    organizations }o--o{ users : "followed_by"
+    teams }o--o{ users : "includes"
+    tasks }o--o{ users : "assigned_to"
 ```
 
 > All tables live in the `sales` schema. IDs are `text` — the CRM's own IDs are used as internal primary keys.
