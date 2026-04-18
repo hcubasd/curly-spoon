@@ -199,7 +199,7 @@ erDiagram
 
     pipelines ||--o{ pipeline_stages : "has"
     pipelines ||--o{ deals : "contains"
-    pipeline_stages o|--o{ deals : "current_stage"
+    pipeline_stages ||--o{ deals : "current_stage"
     users o|--o{ organizations : "owns"
     users o|--o{ deals : "owns"
     users ||--o{ deal_notes : "authored"
