@@ -133,7 +133,6 @@ erDiagram
         text description
         text url
         jsonb address
-        jsonb custom_fields
         timestamptz created_at
         timestamptz updated_at
     }
@@ -147,7 +146,6 @@ erDiagram
         jsonb phones
         jsonb social_profiles
         jsonb legal_bases
-        jsonb custom_fields
         timestamptz created_at
         timestamptz updated_at
     }
@@ -169,7 +167,6 @@ erDiagram
         integer rating
         text status
         timestamptz closed_at
-        jsonb custom_fields
         jsonb distribution_settings
         timestamptz created_at
         timestamptz updated_at

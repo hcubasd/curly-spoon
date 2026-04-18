@@ -19,7 +19,6 @@ create table sales.organizations (
     description   text,
     url           text,
     address       jsonb,
-    custom_fields jsonb       not null default '{}'::jsonb,
     created_at    timestamptz not null,
     updated_at    timestamptz not null
 );
@@ -36,7 +35,6 @@ create table sales.contacts (
     phones           jsonb       not null default '[]'::jsonb,
     social_profiles  jsonb       not null default '[]'::jsonb,
     legal_bases      jsonb       not null default '[]'::jsonb,
-    custom_fields    jsonb       not null default '{}'::jsonb,
     created_at       timestamptz not null,
     updated_at       timestamptz not null
 );
@@ -61,7 +59,6 @@ create table sales.deals (
     rating                integer,
     status                text           not null,
     closed_at             timestamptz,
-    custom_fields         jsonb          not null default '{}'::jsonb,
     distribution_settings jsonb,
     created_at            timestamptz    not null,
     updated_at            timestamptz    not null
