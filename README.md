@@ -180,7 +180,7 @@ erDiagram
     deal_notes {
         text id PK
         text description
-        timestamptz registered_at
+        timestamptz created_at
         timestamptz pinned_at
         timestamptz edited_at
     }
@@ -201,7 +201,7 @@ erDiagram
     pipeline_stages ||--o{ deals : "current_stage"
     users o|--o{ organizations : "owns"
     users o|--o{ deals : "owns"
-    users ||--o{ deal_notes : "authored"
+    users ||--o{ deal_notes : "author"
     users o|--o{ deal_notes : "edited"
     users ||--o{ tasks : "created"
     users o|--o{ tasks : "completed"

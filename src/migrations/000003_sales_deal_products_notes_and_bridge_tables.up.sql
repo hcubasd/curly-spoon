@@ -19,18 +19,18 @@ create index on sales.deal_products (updated_at);
 create table sales.deal_notes (
     id            text        primary key,
     deal_id       text        not null references sales.deals(id),
-    user_id       text        not null references sales.users(id),
+    author_id     text        not null references sales.users(id),
     description   text        not null,
-    registered_at timestamptz not null,
+    created_at    timestamptz not null,
     pinned_at     timestamptz,
     edited_by_id  text        references sales.users(id),
     edited_at     timestamptz
 );
 
 create index on sales.deal_notes (deal_id);
-create index on sales.deal_notes (user_id);
+create index on sales.deal_notes (author_id);
 create index on sales.deal_notes (edited_by_id);
-create index on sales.deal_notes (registered_at);
+create index on sales.deal_notes (created_at);
 
 create table sales.deal_contacts (
     deal_id    text not null references sales.deals(id),
