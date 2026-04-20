@@ -6,12 +6,14 @@ Database migrations for the **modest-galois** project. Manages schema evolution 
 
 ```
 src/migrations/
-  000001_sales_schema.up.sql                                         # initial sales schema: campaigns, lost_reasons, pipelines, products, segments, sources, teams, users
+  000001_sales_schema.up.sql                                         # create the sales schema
   000001_sales_schema.down.sql
-  000002_sales_pipeline_stages_orgs_contacts_deals_tasks.up.sql     # pipeline_stages, organizations, contacts, deals, tasks
-  000002_sales_pipeline_stages_orgs_contacts_deals_tasks.down.sql
-  000003_sales_deal_products_notes_and_bridge_tables.up.sql         # deal_products, deal_notes, deal_contacts, organization_segments, organization_followers, team_users, task_owners
-  000003_sales_deal_products_notes_and_bridge_tables.down.sql
+  000002_sales_core_tables.up.sql                                    # campaigns, lost_reasons, pipelines, products, segments, sources, teams, users
+  000002_sales_core_tables.down.sql
+  000003_sales_pipeline_stages_orgs_contacts_deals_tasks.up.sql      # pipeline_stages, organizations, contacts, deals, tasks
+  000003_sales_pipeline_stages_orgs_contacts_deals_tasks.down.sql
+  000004_sales_deal_products_notes_and_bridge_tables.up.sql          # deal_products, deal_notes, deal_contacts, organization_segments, organization_followers, team_users, task_owners
+  000004_sales_deal_products_notes_and_bridge_tables.down.sql
 ```
 
 ## Local development
@@ -25,9 +27,10 @@ docker compose up
 The `migrate/migrate` container waits for Postgres to be healthy, then applies all pending migrations. A clean run exits with code 0 and logs something like:
 
 ```
-1/u sales_schema (12ms)
-2/u sales_pipeline_stages_orgs_contacts_deals_tasks (18ms)
-3/u sales_deal_products_notes_and_bridge_tables (22ms)
+1/u sales_schema (4ms)
+2/u sales_core_tables (12ms)
+3/u sales_pipeline_stages_orgs_contacts_deals_tasks (18ms)
+4/u sales_deal_products_notes_and_bridge_tables (22ms)
 ```
 
 ## CI

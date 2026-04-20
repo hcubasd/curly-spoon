@@ -1,1 +1,1 @@
-drop schema if exists sales cascade;
+drop schema if exists sales;

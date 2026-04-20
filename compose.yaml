@@ -1,26 +1,22 @@
 services:
-  postgres:
-    image: postgres:17-alpine
+  db:
+    image: postgres:18
+    restart: always
+    shm_size: 128mb
     environment:
-      POSTGRES_USER: curly
-      POSTGRES_PASSWORD: spoon
-      POSTGRES_DB: curly_spoon
-    ports:
-      - "5432:5432"
+      POSTGRES_PASSWORD: example
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U curly -d curly_spoon"]
-      interval: 2s
-      timeout: 5s
-      retries: 10
-
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
   migrate:
-    image: migrate/migrate:latest
+    image: migrate/migrate:4
     depends_on:
-      postgres:
+      db:
         condition: service_healthy
     volumes:
       - ./src/migrations:/migrations
     command:
       - "-path=/migrations"
-      - "-database=postgres://curly:spoon@postgres:5432/curly_spoon?sslmode=disable"
+      - "-database=postgres://postgres:example@db:5432/postgres?sslmode=disable"
       - "up"
+volumes:
+  db:

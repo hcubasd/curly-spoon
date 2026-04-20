@@ -1,3 +1,2 @@
-from migrate/migrate:latest
+from migrate/migrate:4
 copy src/migrations /migrations
-entrypoint ["migrate"]
