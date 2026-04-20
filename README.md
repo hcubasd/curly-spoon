@@ -14,6 +14,10 @@ src/migrations/
   000003_sales_pipeline_stages_orgs_contacts_deals_tasks.down.sql
   000004_sales_deal_products_notes_and_bridge_tables.up.sql          # deal_products, deal_notes, deal_contacts, organization_segments, organization_followers, team_users, task_owners
   000004_sales_deal_products_notes_and_bridge_tables.down.sql
+  000005_integrations_schema.up.sql                                  # create the integrations schema
+  000005_integrations_schema.down.sql
+  000006_integrations_connections_and_sync_cursors.up.sql            # connections and sync_cursors
+  000006_integrations_connections_and_sync_cursors.down.sql
 ```
 
 ## Local development
@@ -31,6 +35,8 @@ The `migrate/migrate` container waits for Postgres to be healthy, then applies a
 2/u sales_core_tables (12ms)
 3/u sales_pipeline_stages_orgs_contacts_deals_tasks (18ms)
 4/u sales_deal_products_notes_and_bridge_tables (22ms)
+5/u integrations_schema (3ms)
+6/u integrations_connections_and_sync_cursors (8ms)
 ```
 
 ## CI
@@ -53,7 +59,9 @@ To rollback one step:
 migrate -path src/migrations -database "postgres://..." down 1
 ```
 
-## Schema
+## Schemas
+
+### sales
 
 ```mermaid
 erDiagram
@@ -224,4 +232,45 @@ erDiagram
     tasks }o--o{ users : "assigned_to"
 ```
 
-> All tables live in the `sales` schema. IDs are `text` — the CRM's own IDs are used as internal primary keys.
+> All tables in this diagram live in the `sales` schema. IDs are `text` — the CRM's own IDs are used as internal primary keys.
+
+### integrations
+
+```mermaid
+erDiagram
+    connections {
+        uuid id PK
+        text provider
+        text account_name
+        text status
+        text client_id
+        text client_secret
+        text access_token
+        text refresh_token
+        text token_type
+        timestamptz expires_at
+        boolean reauth_required
+        text redirect_uri
+        jsonb config
+        timestamptz last_refresh_at
+        text last_refresh_error
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    sync_cursors {
+        bigint id PK
+        text resource
+        text cursor_type
+        jsonb cursor
+        timestamptz last_sync_at
+        text last_sync_status
+        text last_error
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    connections ||--o{ sync_cursors : "tracks"
+```
+
+> All tables in this diagram live in the `integrations` schema. `connections` stores provider auth state, including access and refresh token lifecycle fields, and `sync_cursors` stores per-resource sync progress for each connection.
