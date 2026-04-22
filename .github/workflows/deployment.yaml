@@ -1,10 +1,10 @@
-name: deployment
+name: Deployment
 on:
   push:
     tags:
       - "v*.*.*"
 jobs:
-  build-and-push:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read

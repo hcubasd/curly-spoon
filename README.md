@@ -65,31 +65,31 @@ migrate -path src/migrations -database "postgres://..." down 1
 
 ```mermaid
 erDiagram
-    campaigns {
-        text id PK
+    CAMPAIGN {
+        text id
         text name
         text description
         timestamptz created_at
         timestamptz updated_at
     }
 
-    lost_reasons {
-        text id PK
+    LOST_REASON {
+        text id
         text name
         timestamptz created_at
         timestamptz updated_at
     }
 
-    pipelines {
-        text id PK
+    PIPELINE {
+        text id
         text name
         integer display_order
         timestamptz created_at
         timestamptz updated_at
     }
 
-    pipeline_stages {
-        text id PK
+    PIPELINE_STAGE {
+        text id
         text name
         text description
         text objective
@@ -98,8 +98,8 @@ erDiagram
         timestamptz updated_at
     }
 
-    products {
-        text id PK
+    PRODUCT {
+        text id
         text name
         text description
         numeric price
@@ -108,30 +108,30 @@ erDiagram
         timestamptz updated_at
     }
 
-    segments {
-        text id PK
+    SEGMENT {
+        text id
         text name
         timestamptz created_at
         timestamptz updated_at
     }
 
-    sources {
-        text id PK
+    SOURCE {
+        text id
         text name
         text description
         timestamptz created_at
         timestamptz updated_at
     }
 
-    teams {
-        text id PK
+    TEAM {
+        text id
         text name
         timestamptz created_at
         timestamptz updated_at
     }
 
-    users {
-        text id PK
+    USER {
+        text id
         text name
         text email
         text phone
@@ -139,8 +139,8 @@ erDiagram
         timestamptz updated_at
     }
 
-    organizations {
-        text id PK
+    ORGANIZATION {
+        text id
         text name
         text description
         text url
@@ -149,8 +149,8 @@ erDiagram
         timestamptz updated_at
     }
 
-    contacts {
-        text id PK
+    CONTACT {
+        text id
         text name
         text job_title
         jsonb emails
@@ -161,8 +161,8 @@ erDiagram
         timestamptz updated_at
     }
 
-    deals {
-        text id PK
+    DEAL {
+        text id
         text name
         numeric recurrence_price
         numeric one_time_price
@@ -176,8 +176,8 @@ erDiagram
         timestamptz updated_at
     }
 
-    deal_products {
-        text id PK
+    DEAL_PRODUCT {
+        text id
         numeric price
         numeric quantity
         text discount_type
@@ -188,16 +188,16 @@ erDiagram
         timestamptz updated_at
     }
 
-    deal_notes {
-        text id PK
+    DEAL_NOTE {
+        text id
         text description
         timestamptz created_at
         timestamptz pinned_at
         timestamptz edited_at
     }
 
-    tasks {
-        text id PK
+    TASK {
+        text id
         text name
         text description
         text type
@@ -208,28 +208,28 @@ erDiagram
         timestamptz updated_at
     }
 
-    pipelines ||--o{ pipeline_stages : "has"
-    pipeline_stages ||--o{ deals : "current_stage"
-    users o|--o{ organizations : "owns"
-    users o|--o{ deals : "owns"
-    users ||--o{ deal_notes : "author"
-    users o|--o{ deal_notes : "edited"
-    users ||--o{ tasks : "created"
-    users o|--o{ tasks : "completed"
-    sources o|--o{ deals : "sourced_from"
-    campaigns o|--o{ deals : "attributed_to"
-    lost_reasons o|--o{ deals : "lost_by"
-    organizations o|--o{ contacts : "has"
-    organizations o|--o{ deals : "belongs_to"
-    deals ||--o{ deal_products : "has"
-    products ||--o{ deal_products : "references"
-    deals ||--o{ deal_notes : "has"
-    deals o|--o{ tasks : "has"
-    deals }o--o{ contacts : "links"
-    organizations }o--o{ segments : "classified_as"
-    organizations }o--o{ users : "followed_by"
-    teams }o--o{ users : "includes"
-    tasks }o--o{ users : "assigned_to"
+    PIPELINE ||--o{ PIPELINE_STAGE : "has"
+    PIPELINE_STAGE ||--o{ DEAL : "current_stage"
+    USER o|--o{ ORGANIZATION : "owns"
+    USER o|--o{ DEAL : "owns"
+    USER ||--o{ DEAL_NOTE : "author"
+    USER o|--o{ DEAL_NOTE : "edited"
+    USER ||--o{ TASK : "created"
+    USER o|--o{ TASK : "completed"
+    SOURCE o|--o{ DEAL : "sourced_from"
+    CAMPAIGN o|--o{ DEAL : "attributed_to"
+    LOST_REASON o|--o{ DEAL : "lost_by"
+    ORGANIZATION o|--o{ CONTACT : "has"
+    ORGANIZATION o|--o{ DEAL : "belongs_to"
+    DEAL ||--o{ DEAL_PRODUCT : "has"
+    PRODUCT ||--o{ DEAL_PRODUCT : "references"
+    DEAL ||--o{ DEAL_NOTE : "has"
+    DEAL o|--o{ TASK : "has"
+    DEAL }o--o{ CONTACT : "links"
+    ORGANIZATION }o--o{ SEGMENT : "classified_as"
+    ORGANIZATION }o--o{ USER : "followed_by"
+    TEAM }o--o{ USER : "includes"
+    TASK }o--o{ USER : "assigned_to"
 ```
 
 > All tables in this diagram live in the `sales` schema. IDs are `text` — the CRM's own IDs are used as internal primary keys.
@@ -238,8 +238,8 @@ erDiagram
 
 ```mermaid
 erDiagram
-    connections {
-        uuid id PK
+    CONNECTION {
+        uuid id
         text provider
         text account_name
         text status
@@ -258,8 +258,8 @@ erDiagram
         timestamptz updated_at
     }
 
-    sync_cursors {
-        bigint id PK
+    SYNC_CURSOR {
+        bigint id
         text resource
         text cursor_type
         jsonb cursor
@@ -270,7 +270,7 @@ erDiagram
         timestamptz updated_at
     }
 
-    connections ||--o{ sync_cursors : "tracks"
+    CONNECTION ||--o{ SYNC_CURSOR : "tracks"
 ```
 
 > All tables in this diagram live in the `integrations` schema. `connections` stores provider auth state, including access and refresh token lifecycle fields, and `sync_cursors` stores per-resource sync progress for each connection.
