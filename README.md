@@ -8,11 +8,11 @@ Database migrations for the **modest-galois** project. Manages schema evolution 
 src/migrations/
   000001_sales_schema.up.sql                                         # create the sales schema
   000001_sales_schema.down.sql
-  000002_sales_core_tables.up.sql                                    # campaigns, lost_reasons, pipelines, products, segments, sources, teams, users
+  000002_sales_core_tables.up.sql                                    # crm_campaigns, crm_loss_reasons, crm_pipelines, crm_products, crm_segments, crm_sources, crm_teams, crm_users
   000002_sales_core_tables.down.sql
-  000003_sales_pipeline_stages_orgs_contacts_deals_tasks.up.sql      # pipeline_stages, organizations, contacts, deals, tasks
+  000003_sales_pipeline_stages_orgs_contacts_deals_tasks.up.sql      # crm_pipeline_stages, crm_organizations, crm_contacts, crm_deals, crm_tasks
   000003_sales_pipeline_stages_orgs_contacts_deals_tasks.down.sql
-  000004_sales_deal_products_notes_and_bridge_tables.up.sql          # deal_products, deal_notes, deal_contacts, organization_segments, organization_followers, team_users, task_owners
+  000004_sales_deal_products_notes_and_bridge_tables.up.sql          # crm_deal_products, crm_deal_notes, crm_deal_contacts, crm_organization_segments, crm_organization_users, crm_team_users, crm_task_users
   000004_sales_deal_products_notes_and_bridge_tables.down.sql
   000005_integrations_schema.up.sql                                  # create the integrations schema
   000005_integrations_schema.down.sql
@@ -65,7 +65,7 @@ migrate -path src/migrations -database "postgres://..." down 1
 
 ```mermaid
 erDiagram
-    CAMPAIGN {
+    CRM_CAMPAIGN {
         text id
         text name
         text description
@@ -73,14 +73,14 @@ erDiagram
         timestamptz updated_at
     }
 
-    LOST_REASON {
+    CRM_LOSS_REASON {
         text id
         text name
         timestamptz created_at
         timestamptz updated_at
     }
 
-    PIPELINE {
+    CRM_PIPELINE {
         text id
         text name
         integer display_order
@@ -88,7 +88,7 @@ erDiagram
         timestamptz updated_at
     }
 
-    PIPELINE_STAGE {
+    CRM_PIPELINE_STAGE {
         text id
         text name
         text description
@@ -98,7 +98,7 @@ erDiagram
         timestamptz updated_at
     }
 
-    PRODUCT {
+    CRM_PRODUCT {
         text id
         text name
         text description
@@ -108,14 +108,14 @@ erDiagram
         timestamptz updated_at
     }
 
-    SEGMENT {
+    CRM_SEGMENT {
         text id
         text name
         timestamptz created_at
         timestamptz updated_at
     }
 
-    SOURCE {
+    CRM_SOURCE {
         text id
         text name
         text description
@@ -123,14 +123,14 @@ erDiagram
         timestamptz updated_at
     }
 
-    TEAM {
+    CRM_TEAM {
         text id
         text name
         timestamptz created_at
         timestamptz updated_at
     }
 
-    USER {
+    CRM_USER {
         text id
         text name
         text email
@@ -139,7 +139,7 @@ erDiagram
         timestamptz updated_at
     }
 
-    ORGANIZATION {
+    CRM_ORGANIZATION {
         text id
         text name
         text description
@@ -149,7 +149,7 @@ erDiagram
         timestamptz updated_at
     }
 
-    CONTACT {
+    CRM_CONTACT {
         text id
         text name
         text job_title
@@ -161,7 +161,7 @@ erDiagram
         timestamptz updated_at
     }
 
-    DEAL {
+    CRM_DEAL {
         text id
         text name
         numeric recurrence_price
@@ -176,7 +176,7 @@ erDiagram
         timestamptz updated_at
     }
 
-    DEAL_PRODUCT {
+    CRM_DEAL_PRODUCT {
         text id
         numeric price
         numeric quantity
@@ -188,7 +188,7 @@ erDiagram
         timestamptz updated_at
     }
 
-    DEAL_NOTE {
+    CRM_DEAL_NOTE {
         text id
         text description
         timestamptz created_at
@@ -196,7 +196,7 @@ erDiagram
         timestamptz edited_at
     }
 
-    TASK {
+    CRM_TASK {
         text id
         text name
         text description
@@ -208,28 +208,28 @@ erDiagram
         timestamptz updated_at
     }
 
-    PIPELINE ||--o{ PIPELINE_STAGE : "has"
-    PIPELINE_STAGE ||--o{ DEAL : "current_stage"
-    USER o|--o{ ORGANIZATION : "owns"
-    USER o|--o{ DEAL : "owns"
-    USER ||--o{ DEAL_NOTE : "author"
-    USER o|--o{ DEAL_NOTE : "edited"
-    USER ||--o{ TASK : "created"
-    USER o|--o{ TASK : "completed"
-    SOURCE o|--o{ DEAL : "sourced_from"
-    CAMPAIGN o|--o{ DEAL : "attributed_to"
-    LOST_REASON o|--o{ DEAL : "lost_by"
-    ORGANIZATION o|--o{ CONTACT : "has"
-    ORGANIZATION o|--o{ DEAL : "belongs_to"
-    DEAL ||--o{ DEAL_PRODUCT : "has"
-    PRODUCT ||--o{ DEAL_PRODUCT : "references"
-    DEAL ||--o{ DEAL_NOTE : "has"
-    DEAL o|--o{ TASK : "has"
-    DEAL }o--o{ CONTACT : "links"
-    ORGANIZATION }o--o{ SEGMENT : "classified_as"
-    ORGANIZATION }o--o{ USER : "followed_by"
-    TEAM }o--o{ USER : "includes"
-    TASK }o--o{ USER : "assigned_to"
+    CRM_PIPELINE ||--o{ CRM_PIPELINE_STAGE : "has"
+    CRM_PIPELINE_STAGE ||--o{ CRM_DEAL : "current_stage"
+    CRM_USER o|--o{ CRM_ORGANIZATION : "owns"
+    CRM_USER o|--o{ CRM_DEAL : "owns"
+    CRM_USER ||--o{ CRM_DEAL_NOTE : "author"
+    CRM_USER o|--o{ CRM_DEAL_NOTE : "edited"
+    CRM_USER ||--o{ CRM_TASK : "created"
+    CRM_USER o|--o{ CRM_TASK : "completed"
+    CRM_SOURCE o|--o{ CRM_DEAL : "sourced_from"
+    CRM_CAMPAIGN o|--o{ CRM_DEAL : "attributed_to"
+    CRM_LOSS_REASON o|--o{ CRM_DEAL : "lost_by"
+    CRM_ORGANIZATION o|--o{ CRM_CONTACT : "has"
+    CRM_ORGANIZATION o|--o{ CRM_DEAL : "belongs_to"
+    CRM_DEAL ||--o{ CRM_DEAL_PRODUCT : "has"
+    CRM_PRODUCT ||--o{ CRM_DEAL_PRODUCT : "references"
+    CRM_DEAL ||--o{ CRM_DEAL_NOTE : "has"
+    CRM_DEAL o|--o{ CRM_TASK : "has"
+    CRM_DEAL }o--o{ CRM_CONTACT : "links"
+    CRM_ORGANIZATION }o--o{ CRM_SEGMENT : "classified_as"
+    CRM_ORGANIZATION }o--o{ CRM_USER : "followed_by"
+    CRM_TEAM }o--o{ CRM_USER : "includes"
+    CRM_TASK }o--o{ CRM_USER : "assigned_to"
 ```
 
 > All tables in this diagram live in the `sales` schema. IDs are `text` — the CRM's own IDs are used as internal primary keys.

@@ -1,6 +1,6 @@
-create table sales.pipeline_stages (
+create table sales.crm_pipeline_stages (
   id text primary key,
-  pipeline_id text not null references sales.pipelines(id),
+  pipeline_id text not null references sales.crm_pipelines(id),
   name text not null,
   description text,
   objective text,
@@ -9,12 +9,12 @@ create table sales.pipeline_stages (
   updated_at timestamptz not null
 );
 
-create index on sales.pipeline_stages (pipeline_id);
-create index on sales.pipeline_stages (updated_at);
+create index on sales.crm_pipeline_stages (pipeline_id);
+create index on sales.crm_pipeline_stages (updated_at);
 
-create table sales.organizations (
+create table sales.crm_organizations (
   id text primary key,
-  owner_id text references sales.users(id),
+  owner_id text references sales.crm_users(id),
   name text not null,
   description text,
   url text,
@@ -23,12 +23,12 @@ create table sales.organizations (
   updated_at timestamptz not null
 );
 
-create index on sales.organizations (owner_id);
-create index on sales.organizations (updated_at);
+create index on sales.crm_organizations (owner_id);
+create index on sales.crm_organizations (updated_at);
 
-create table sales.contacts (
+create table sales.crm_contacts (
   id text primary key,
-  organization_id text references sales.organizations(id),
+  organization_id text references sales.crm_organizations(id),
   name text not null,
   job_title text,
   emails jsonb not null default '[]'::jsonb,
@@ -39,17 +39,17 @@ create table sales.contacts (
   updated_at timestamptz not null
 );
 
-create index on sales.contacts (organization_id);
-create index on sales.contacts (updated_at);
+create index on sales.crm_contacts (organization_id);
+create index on sales.crm_contacts (updated_at);
 
-create table sales.deals (
+create table sales.crm_deals (
   id text primary key,
-  stage_id text not null references sales.pipeline_stages(id),
-  owner_id text references sales.users(id),
-  source_id text references sales.sources(id),
-  campaign_id text references sales.campaigns(id),
-  lost_reason_id text references sales.lost_reasons(id),
-  organization_id text references sales.organizations(id),
+  stage_id text not null references sales.crm_pipeline_stages(id),
+  owner_id text references sales.crm_users(id),
+  source_id text references sales.crm_sources(id),
+  campaign_id text references sales.crm_campaigns(id),
+  lost_reason_id text references sales.crm_loss_reasons(id),
+  organization_id text references sales.crm_organizations(id),
   name text not null,
   recurrence_price numeric(14, 2) not null default 0,
   one_time_price numeric(14, 2) not null default 0,
@@ -63,21 +63,21 @@ create table sales.deals (
   updated_at timestamptz not null
 );
 
-create index on sales.deals (stage_id);
-create index on sales.deals (owner_id);
-create index on sales.deals (source_id);
-create index on sales.deals (campaign_id);
-create index on sales.deals (lost_reason_id);
-create index on sales.deals (organization_id);
-create index on sales.deals (status);
-create index on sales.deals (updated_at);
-create index on sales.deals (expected_close_date);
+create index on sales.crm_deals (stage_id);
+create index on sales.crm_deals (owner_id);
+create index on sales.crm_deals (source_id);
+create index on sales.crm_deals (campaign_id);
+create index on sales.crm_deals (lost_reason_id);
+create index on sales.crm_deals (organization_id);
+create index on sales.crm_deals (status);
+create index on sales.crm_deals (updated_at);
+create index on sales.crm_deals (expected_close_date);
 
-create table sales.tasks (
+create table sales.crm_tasks (
   id text primary key,
-  created_by_id text not null references sales.users(id),
-  completed_by_id text references sales.users(id),
-  deal_id text references sales.deals(id),
+  created_by_id text not null references sales.crm_users(id),
+  completed_by_id text references sales.crm_users(id),
+  deal_id text references sales.crm_deals(id),
   name text not null,
   description text,
   type text not null,
@@ -88,9 +88,9 @@ create table sales.tasks (
   updated_at timestamptz not null
 );
 
-create index on sales.tasks (created_by_id);
-create index on sales.tasks (completed_by_id);
-create index on sales.tasks (deal_id);
-create index on sales.tasks (status);
-create index on sales.tasks (due_date);
-create index on sales.tasks (updated_at);
+create index on sales.crm_tasks (created_by_id);
+create index on sales.crm_tasks (completed_by_id);
+create index on sales.crm_tasks (deal_id);
+create index on sales.crm_tasks (status);
+create index on sales.crm_tasks (due_date);
+create index on sales.crm_tasks (updated_at);

@@ -1,8 +1,8 @@
-drop table if exists sales.users;
-drop table if exists sales.teams;
-drop table if exists sales.sources;
-drop table if exists sales.segments;
-drop table if exists sales.products;
-drop table if exists sales.pipelines;
-drop table if exists sales.lost_reasons;
-drop table if exists sales.campaigns;
+drop table if exists sales.crm_users;
+drop table if exists sales.crm_teams;
+drop table if exists sales.crm_sources;
+drop table if exists sales.crm_segments;
+drop table if exists sales.crm_products;
+drop table if exists sales.crm_pipelines;
+drop table if exists sales.crm_loss_reasons;
+drop table if exists sales.crm_campaigns;

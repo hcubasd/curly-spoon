@@ -1,4 +1,4 @@
-create table sales.campaigns (
+create table sales.crm_campaigns (
   id text primary key,
   name text not null,
   description text,
@@ -6,14 +6,14 @@ create table sales.campaigns (
   updated_at timestamptz not null
 );
 
-create table sales.lost_reasons (
+create table sales.crm_loss_reasons (
   id text primary key,
   name text not null,
   created_at timestamptz not null,
   updated_at timestamptz not null
 );
 
-create table sales.pipelines (
+create table sales.crm_pipelines (
   id text primary key,
   name text not null,
   display_order integer not null,
@@ -21,7 +21,7 @@ create table sales.pipelines (
   updated_at timestamptz not null
 );
 
-create table sales.products (
+create table sales.crm_products (
   id text primary key,
   name text not null,
   description text,
@@ -31,14 +31,14 @@ create table sales.products (
   updated_at timestamptz not null
 );
 
-create table sales.segments (
+create table sales.crm_segments (
   id text primary key,
   name text not null,
   created_at timestamptz not null,
   updated_at timestamptz not null
 );
 
-create table sales.sources (
+create table sales.crm_sources (
   id text primary key,
   name text not null,
   description text,
@@ -46,14 +46,14 @@ create table sales.sources (
   updated_at timestamptz not null
 );
 
-create table sales.teams (
+create table sales.crm_teams (
   id text primary key,
   name text not null,
   created_at timestamptz not null,
   updated_at timestamptz not null
 );
 
-create table sales.users (
+create table sales.crm_users (
   id text primary key,
   name text not null,
   email text,
@@ -62,11 +62,11 @@ create table sales.users (
   updated_at timestamptz not null
 );
 
-create index on sales.campaigns (updated_at);
-create index on sales.lost_reasons (updated_at);
-create index on sales.pipelines (updated_at);
-create index on sales.products (updated_at);
-create index on sales.segments (updated_at);
-create index on sales.sources (updated_at);
-create index on sales.teams (updated_at);
-create index on sales.users (updated_at);
+create index on sales.crm_campaigns (updated_at);
+create index on sales.crm_loss_reasons (updated_at);
+create index on sales.crm_pipelines (updated_at);
+create index on sales.crm_products (updated_at);
+create index on sales.crm_segments (updated_at);
+create index on sales.crm_sources (updated_at);
+create index on sales.crm_teams (updated_at);
+create index on sales.crm_users (updated_at);
