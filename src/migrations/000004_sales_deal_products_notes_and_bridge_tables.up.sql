@@ -40,13 +40,13 @@ create table sales.crm_deal_contacts (
 
 create index on sales.crm_deal_contacts (contact_id);
 
-create table sales.crm_organization_segments (
+create table sales.crm_organization_industries (
   organization_id text not null references sales.crm_organizations(id),
-  segment_id text not null references sales.crm_segments(id),
-  primary key (organization_id, segment_id)
+  industry_id text not null references sales.crm_industries(id),
+  primary key (organization_id, industry_id)
 );
 
-create index on sales.crm_organization_segments (segment_id);
+create index on sales.crm_organization_industries (industry_id);
 
 create table sales.crm_organization_users (
   organization_id text not null references sales.crm_organizations(id),

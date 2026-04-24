@@ -31,7 +31,7 @@ create table sales.crm_products (
   updated_at timestamptz not null
 );
 
-create table sales.crm_segments (
+create table sales.crm_industries (
   id text primary key,
   name text not null,
   created_at timestamptz not null,
@@ -66,7 +66,7 @@ create index on sales.crm_campaigns (updated_at);
 create index on sales.crm_loss_reasons (updated_at);
 create index on sales.crm_pipelines (updated_at);
 create index on sales.crm_products (updated_at);
-create index on sales.crm_segments (updated_at);
+create index on sales.crm_industries (updated_at);
 create index on sales.crm_sources (updated_at);
 create index on sales.crm_teams (updated_at);
 create index on sales.crm_users (updated_at);

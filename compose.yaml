@@ -7,16 +7,18 @@ services:
       POSTGRES_PASSWORD: example
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
-  migrate:
+    volumes:
+      - db:/var/lib/postgresql/18/docker
+  migrations:
     image: migrate/migrate:4
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./src/migrations:/migrations
     command:
       - "-path=/migrations"
       - "-database=postgres://postgres:example@db:5432/postgres?sslmode=disable"
       - "up"
+    volumes:
+      - ./src/migrations:/migrations
 volumes:
   db:

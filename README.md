@@ -8,11 +8,11 @@ Database migrations for the **modest-galois** project. Manages schema evolution 
 src/migrations/
   000001_sales_schema.up.sql                                         # create the sales schema
   000001_sales_schema.down.sql
-  000002_sales_core_tables.up.sql                                    # crm_campaigns, crm_loss_reasons, crm_pipelines, crm_products, crm_segments, crm_sources, crm_teams, crm_users
+  000002_sales_core_tables.up.sql                                    # crm_campaigns, crm_loss_reasons, crm_pipelines, crm_products, crm_industries, crm_sources, crm_teams, crm_users
   000002_sales_core_tables.down.sql
   000003_sales_pipeline_stages_orgs_contacts_deals_tasks.up.sql      # crm_pipeline_stages, crm_organizations, crm_contacts, crm_deals, crm_tasks
   000003_sales_pipeline_stages_orgs_contacts_deals_tasks.down.sql
-  000004_sales_deal_products_notes_and_bridge_tables.up.sql          # crm_deal_products, crm_deal_notes, crm_deal_contacts, crm_organization_segments, crm_organization_users, crm_team_users, crm_task_users
+  000004_sales_deal_products_notes_and_bridge_tables.up.sql          # crm_deal_products, crm_deal_notes, crm_deal_contacts, crm_organization_industries, crm_organization_users, crm_team_users, crm_task_users
   000004_sales_deal_products_notes_and_bridge_tables.down.sql
   000005_integrations_schema.up.sql                                  # create the integrations schema
   000005_integrations_schema.down.sql
@@ -108,7 +108,7 @@ erDiagram
         timestamptz updated_at
     }
 
-    CRM_SEGMENT {
+    CRM_INDUSTRY {
         text id
         text name
         timestamptz created_at
@@ -226,7 +226,7 @@ erDiagram
     CRM_DEAL ||--o{ CRM_DEAL_NOTE : "has"
     CRM_DEAL o|--o{ CRM_TASK : "has"
     CRM_DEAL }o--o{ CRM_CONTACT : "links"
-    CRM_ORGANIZATION }o--o{ CRM_SEGMENT : "classified_as"
+    CRM_ORGANIZATION }o--o{ CRM_INDUSTRY : "classified_as"
     CRM_ORGANIZATION }o--o{ CRM_USER : "followed_by"
     CRM_TEAM }o--o{ CRM_USER : "includes"
     CRM_TASK }o--o{ CRM_USER : "assigned_to"
