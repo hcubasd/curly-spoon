@@ -41,7 +41,7 @@ The `migrate/migrate` container waits for Postgres to be healthy, then applies a
 
 ## CI
 
-Every push to any branch triggers the `integration` workflow (`.github/workflows/integration.yaml`), which runs `docker compose up --exit-code-from migrate` to verify all migrations apply cleanly against a fresh Postgres instance.
+Every push to any branch triggers the `integration` workflow (`.github/workflows/integration.yaml`), which runs `docker compose up --exit-code-from migrations` to verify all migrations apply cleanly against a fresh Postgres instance.
 
 ## Migration files
 
