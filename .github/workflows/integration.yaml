@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - run: docker compose up --exit-code-from migrate
+      - run: docker compose up --exit-code-from migrations
