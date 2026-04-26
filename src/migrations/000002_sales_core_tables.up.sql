@@ -26,7 +26,6 @@ create table sales.crm_products (
   name text not null,
   description text,
   price numeric(14, 2) not null,
-  visible boolean not null,
   created_at timestamptz not null,
   updated_at timestamptz not null
 );

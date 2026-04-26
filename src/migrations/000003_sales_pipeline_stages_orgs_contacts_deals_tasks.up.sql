@@ -34,7 +34,6 @@ create table sales.crm_contacts (
   emails jsonb not null default '[]'::jsonb,
   phones jsonb not null default '[]'::jsonb,
   social_profiles jsonb not null default '[]'::jsonb,
-  legal_bases jsonb not null default '[]'::jsonb,
   created_at timestamptz not null,
   updated_at timestamptz not null
 );
@@ -48,12 +47,9 @@ create table sales.crm_deals (
   owner_id text references sales.crm_users(id),
   source_id text references sales.crm_sources(id),
   campaign_id text references sales.crm_campaigns(id),
-  lost_reason_id text references sales.crm_loss_reasons(id),
+  loss_reason_id text references sales.crm_loss_reasons(id),
   organization_id text references sales.crm_organizations(id),
   name text not null,
-  recurrence_price numeric(14, 2) not null default 0,
-  one_time_price numeric(14, 2) not null default 0,
-  total_price numeric(14, 2) not null default 0,
   expected_close_date date,
   rating integer,
   status text not null,

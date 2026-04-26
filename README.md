@@ -103,7 +103,6 @@ erDiagram
         text name
         text description
         numeric price
-        boolean visible
         timestamptz created_at
         timestamptz updated_at
     }
@@ -156,7 +155,6 @@ erDiagram
         jsonb emails
         jsonb phones
         jsonb social_profiles
-        jsonb legal_bases
         timestamptz created_at
         timestamptz updated_at
     }
@@ -164,9 +162,6 @@ erDiagram
     CRM_DEAL {
         text id
         text name
-        numeric recurrence_price
-        numeric one_time_price
-        numeric total_price
         date expected_close_date
         integer rating
         text status
