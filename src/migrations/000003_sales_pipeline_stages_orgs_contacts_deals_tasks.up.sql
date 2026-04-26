@@ -63,7 +63,7 @@ create index on sales.crm_deals (stage_id);
 create index on sales.crm_deals (owner_id);
 create index on sales.crm_deals (source_id);
 create index on sales.crm_deals (campaign_id);
-create index on sales.crm_deals (lost_reason_id);
+create index on sales.crm_deals (loss_reason_id);
 create index on sales.crm_deals (organization_id);
 create index on sales.crm_deals (status);
 create index on sales.crm_deals (updated_at);
