@@ -16,22 +16,6 @@ create index on sales.crm_deal_products (deal_id);
 create index on sales.crm_deal_products (product_id);
 create index on sales.crm_deal_products (updated_at);
 
-create table sales.crm_deal_notes (
-  id text primary key,
-  deal_id text not null references sales.crm_deals(id),
-  author_id text not null references sales.crm_users(id),
-  description text not null,
-  created_at timestamptz not null,
-  pinned_at timestamptz,
-  edited_by_id text references sales.crm_users(id),
-  edited_at timestamptz
-);
-
-create index on sales.crm_deal_notes (deal_id);
-create index on sales.crm_deal_notes (author_id);
-create index on sales.crm_deal_notes (edited_by_id);
-create index on sales.crm_deal_notes (created_at);
-
 create table sales.crm_deal_contacts (
   deal_id text not null references sales.crm_deals(id),
   contact_id text not null references sales.crm_contacts(id),

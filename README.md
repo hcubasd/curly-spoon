@@ -12,7 +12,7 @@ src/migrations/
   000002_sales_core_tables.down.sql
   000003_sales_pipeline_stages_orgs_contacts_deals_tasks.up.sql      # crm_pipeline_stages, crm_organizations, crm_contacts, crm_deals, crm_tasks
   000003_sales_pipeline_stages_orgs_contacts_deals_tasks.down.sql
-  000004_sales_deal_products_notes_and_bridge_tables.up.sql          # crm_deal_products, crm_deal_notes, crm_deal_contacts, crm_organization_industries, crm_organization_users, crm_team_users, crm_task_users
+  000004_sales_deal_products_notes_and_bridge_tables.up.sql          # crm_deal_products, crm_deal_contacts, crm_organization_industries, crm_organization_users, crm_team_users, crm_task_users
   000004_sales_deal_products_notes_and_bridge_tables.down.sql
   000005_integrations_schema.up.sql                                  # create the integrations schema
   000005_integrations_schema.down.sql
@@ -183,14 +183,6 @@ erDiagram
         timestamptz updated_at
     }
 
-    CRM_DEAL_NOTE {
-        text id
-        text description
-        timestamptz created_at
-        timestamptz pinned_at
-        timestamptz edited_at
-    }
-
     CRM_TASK {
         text id
         text name
@@ -207,8 +199,6 @@ erDiagram
     CRM_PIPELINE_STAGE ||--o{ CRM_DEAL : "current_stage"
     CRM_USER o|--o{ CRM_ORGANIZATION : "owns"
     CRM_USER o|--o{ CRM_DEAL : "owns"
-    CRM_USER ||--o{ CRM_DEAL_NOTE : "author"
-    CRM_USER o|--o{ CRM_DEAL_NOTE : "edited"
     CRM_USER ||--o{ CRM_TASK : "created"
     CRM_USER o|--o{ CRM_TASK : "completed"
     CRM_SOURCE o|--o{ CRM_DEAL : "sourced_from"
@@ -218,7 +208,6 @@ erDiagram
     CRM_ORGANIZATION o|--o{ CRM_DEAL : "belongs_to"
     CRM_DEAL ||--o{ CRM_DEAL_PRODUCT : "has"
     CRM_PRODUCT ||--o{ CRM_DEAL_PRODUCT : "references"
-    CRM_DEAL ||--o{ CRM_DEAL_NOTE : "has"
     CRM_DEAL o|--o{ CRM_TASK : "has"
     CRM_DEAL }o--o{ CRM_CONTACT : "links"
     CRM_ORGANIZATION }o--o{ CRM_INDUSTRY : "classified_as"

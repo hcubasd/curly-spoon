@@ -54,7 +54,6 @@ create table sales.crm_deals (
   rating integer,
   status text not null,
   closed_at timestamptz,
-  distribution_settings jsonb,
   created_at timestamptz not null,
   updated_at timestamptz not null
 );
