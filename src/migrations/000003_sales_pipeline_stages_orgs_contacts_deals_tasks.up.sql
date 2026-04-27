@@ -53,6 +53,7 @@ create table sales.crm_deals (
   expected_close_date date,
   rating integer,
   status text not null,
+  value numeric(14, 2),
   closed_at timestamptz,
   created_at timestamptz not null,
   updated_at timestamptz not null

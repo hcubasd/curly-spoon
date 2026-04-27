@@ -12,7 +12,7 @@ src/migrations/
   000002_sales_core_tables.down.sql
   000003_sales_pipeline_stages_orgs_contacts_deals_tasks.up.sql      # crm_pipeline_stages, crm_organizations, crm_contacts, crm_deals, crm_tasks
   000003_sales_pipeline_stages_orgs_contacts_deals_tasks.down.sql
-  000004_sales_deal_products_notes_and_bridge_tables.up.sql          # crm_deal_products, crm_deal_contacts, crm_organization_industries, crm_organization_users, crm_team_users, crm_task_users
+  000004_sales_deal_products_notes_and_bridge_tables.up.sql          # crm_deals_products, crm_deals_contacts, crm_organizations_industries, crm_organizations_users, crm_teams_users, crm_tasks_users
   000004_sales_deal_products_notes_and_bridge_tables.down.sql
   000005_integrations_schema.up.sql                                  # create the integrations schema
   000005_integrations_schema.down.sql
@@ -162,23 +162,11 @@ erDiagram
     CRM_DEAL {
         text id
         text name
+        numeric value
         date expected_close_date
         integer rating
         text status
         timestamptz closed_at
-        jsonb distribution_settings
-        timestamptz created_at
-        timestamptz updated_at
-    }
-
-    CRM_DEAL_PRODUCT {
-        text id
-        numeric price
-        numeric quantity
-        text discount_type
-        numeric discount
-        numeric total_price
-        text billing_frequency
         timestamptz created_at
         timestamptz updated_at
     }
@@ -206,13 +194,12 @@ erDiagram
     CRM_LOSS_REASON o|--o{ CRM_DEAL : "lost_by"
     CRM_ORGANIZATION o|--o{ CRM_CONTACT : "has"
     CRM_ORGANIZATION o|--o{ CRM_DEAL : "belongs_to"
-    CRM_DEAL ||--o{ CRM_DEAL_PRODUCT : "has"
-    CRM_PRODUCT ||--o{ CRM_DEAL_PRODUCT : "references"
+    CRM_DEAL }o--o{ CRM_PRODUCT : "involves"
     CRM_DEAL o|--o{ CRM_TASK : "has"
     CRM_DEAL }o--o{ CRM_CONTACT : "links"
     CRM_ORGANIZATION }o--o{ CRM_INDUSTRY : "classified_as"
     CRM_ORGANIZATION }o--o{ CRM_USER : "followed_by"
-    CRM_TEAM }o--o{ CRM_USER : "includes"
+    CRM_USER }o--o{ CRM_TEAM : "belongs_to"
     CRM_TASK }o--o{ CRM_USER : "assigned_to"
 ```
 
