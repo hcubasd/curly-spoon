@@ -1,5 +1,5 @@
-drop table if exists sales.crm_tasks;
-drop table if exists sales.crm_deals;
-drop table if exists sales.crm_contacts;
-drop table if exists sales.crm_organizations;
-drop table if exists sales.crm_pipeline_stages;
+DROP TABLE IF EXISTS sales.crm_tasks;
+DROP TABLE IF EXISTS sales.crm_deals;
+DROP TABLE IF EXISTS sales.crm_contacts;
+DROP TABLE IF EXISTS sales.crm_organizations;
+DROP TABLE IF EXISTS sales.crm_pipeline_stages;

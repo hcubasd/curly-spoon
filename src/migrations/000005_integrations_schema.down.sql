@@ -1,1 +1,1 @@
-drop schema if exists integrations;
+DROP SCHEMA IF EXISTS integrations;

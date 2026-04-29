@@ -1,1 +1,1 @@
-create schema if not exists integrations;
+CREATE SCHEMA IF NOT EXISTS integrations;

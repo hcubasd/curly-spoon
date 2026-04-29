@@ -1,1 +1,1 @@
-create schema if not exists sales;
+CREATE SCHEMA IF NOT EXISTS sales;

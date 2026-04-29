@@ -1,71 +1,71 @@
-create table sales.crm_campaigns (
-  id text primary key,
-  name text not null,
+CREATE TABLE sales.crm_campaigns (
+  id text PRIMARY KEY,
+  name text NOT NULL,
   description text,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+  created_at timestamptz NOT NULL,
+  updated_at timestamptz NOT NULL
 );
 
-create table sales.crm_loss_reasons (
-  id text primary key,
-  name text not null,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+CREATE TABLE sales.crm_loss_reasons (
+  id text PRIMARY KEY,
+  name text NOT NULL,
+  created_at timestamptz NOT NULL,
+  updated_at timestamptz NOT NULL
 );
 
-create table sales.crm_pipelines (
-  id text primary key,
-  name text not null,
-  display_order integer not null,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+CREATE TABLE sales.crm_pipelines (
+  id text PRIMARY KEY,
+  name text NOT NULL,
+  display_order integer NOT NULL,
+  created_at timestamptz NOT NULL,
+  updated_at timestamptz NOT NULL
 );
 
-create table sales.crm_products (
-  id text primary key,
-  name text not null,
+CREATE TABLE sales.crm_products (
+  id text PRIMARY KEY,
+  name text NOT NULL,
   description text,
-  price numeric(14, 2) not null,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+  price numeric(14, 2) NOT NULL,
+  created_at timestamptz NOT NULL,
+  updated_at timestamptz NOT NULL
 );
 
-create table sales.crm_industries (
-  id text primary key,
-  name text not null,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+CREATE TABLE sales.crm_industries (
+  id text PRIMARY KEY,
+  name text NOT NULL,
+  created_at timestamptz NOT NULL,
+  updated_at timestamptz NOT NULL
 );
 
-create table sales.crm_sources (
-  id text primary key,
-  name text not null,
+CREATE TABLE sales.crm_sources (
+  id text PRIMARY KEY,
+  name text NOT NULL,
   description text,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+  created_at timestamptz NOT NULL,
+  updated_at timestamptz NOT NULL
 );
 
-create table sales.crm_teams (
-  id text primary key,
-  name text not null,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+CREATE TABLE sales.crm_teams (
+  id text PRIMARY KEY,
+  name text NOT NULL,
+  created_at timestamptz NOT NULL,
+  updated_at timestamptz NOT NULL
 );
 
-create table sales.crm_users (
-  id text primary key,
-  name text not null,
+CREATE TABLE sales.crm_users (
+  id text PRIMARY KEY,
+  name text NOT NULL,
   email text,
   phone text,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+  created_at timestamptz NOT NULL,
+  updated_at timestamptz NOT NULL
 );
 
-create index on sales.crm_campaigns (updated_at);
-create index on sales.crm_loss_reasons (updated_at);
-create index on sales.crm_pipelines (updated_at);
-create index on sales.crm_products (updated_at);
-create index on sales.crm_industries (updated_at);
-create index on sales.crm_sources (updated_at);
-create index on sales.crm_teams (updated_at);
-create index on sales.crm_users (updated_at);
+CREATE INDEX ON sales.crm_campaigns (updated_at);
+CREATE INDEX ON sales.crm_loss_reasons (updated_at);
+CREATE INDEX ON sales.crm_pipelines (updated_at);
+CREATE INDEX ON sales.crm_products (updated_at);
+CREATE INDEX ON sales.crm_industries (updated_at);
+CREATE INDEX ON sales.crm_sources (updated_at);
+CREATE INDEX ON sales.crm_teams (updated_at);
+CREATE INDEX ON sales.crm_users (updated_at);

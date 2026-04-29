@@ -1,1 +1,1 @@
-drop schema if exists sales;
+DROP SCHEMA IF EXISTS sales;
