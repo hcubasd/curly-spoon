@@ -14,10 +14,8 @@ src/migrations/
   000003_sales_pipeline_stages_orgs_contacts_deals_tasks.down.sql
   000004_sales_deal_products_notes_and_bridge_tables.up.sql          # crm_deals_products, crm_deals_contacts, crm_organizations_industries, crm_organizations_users, crm_teams_users, crm_tasks_users
   000004_sales_deal_products_notes_and_bridge_tables.down.sql
-  000005_integrations_schema.up.sql                                  # create the integrations schema
-  000005_integrations_schema.down.sql
-  000006_integrations_connections_and_sync_cursors.up.sql            # connections and sync_cursors
-  000006_integrations_connections_and_sync_cursors.down.sql
+  000005_tokens.up.sql                                               # tokens (provider auth credentials for external API integrations)
+  000005_tokens.down.sql
 ```
 
 ## Local development
@@ -35,8 +33,7 @@ The `migrate/migrate` container waits for Postgres to be healthy, then applies a
 2/u sales_core_tables (12ms)
 3/u sales_pipeline_stages_orgs_contacts_deals_tasks (18ms)
 4/u sales_deal_products_notes_and_bridge_tables (22ms)
-5/u integrations_schema (3ms)
-6/u integrations_connections_and_sync_cursors (8ms)
+5/u tokens (3ms)
 ```
 
 ## CI
@@ -211,43 +208,16 @@ erDiagram
 
 > All tables in this diagram live in the `sales` schema. IDs are `text` — the CRM's own IDs are used as internal primary keys.
 
-### integrations
+### public
 
 ```mermaid
 erDiagram
-    CONNECTION {
-        uuid id
-        text provider
-        text account_name
-        text status
-        text client_id
-        text client_secret
+    TOKENS {
+        text provider PK
         text access_token
         text refresh_token
-        text token_type
-        timestamptz expires_at
-        boolean reauth_required
-        text redirect_uri
-        jsonb config
-        timestamptz last_refresh_at
-        text last_refresh_error
-        timestamptz created_at
         timestamptz updated_at
     }
-
-    SYNC_CURSOR {
-        bigint id
-        text resource
-        text cursor_type
-        jsonb cursor
-        timestamptz last_sync_at
-        text last_sync_status
-        text last_error
-        timestamptz created_at
-        timestamptz updated_at
-    }
-
-    CONNECTION ||--o{ SYNC_CURSOR : "tracks"
 ```
 
-> All tables in this diagram live in the `integrations` schema. `connections` stores provider auth state, including access and refresh token lifecycle fields, and `sync_cursors` stores per-resource sync progress for each connection.
+> `tokens` lives in the default `public` schema. One row per provider (e.g. `pipedrive`, `netsuite`). Seeded manually with the initial token pair; workers refresh on every run. `refresh_token` is nullable to accommodate providers that use API keys instead of OAuth 2.
