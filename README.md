@@ -59,6 +59,12 @@ To rollback one step:
 migrate -path src/migrations -database "postgres://..." down 1
 ```
 
+## Scripts
+
+Helper scripts for setting up a development environment on a new machine:
+
+- `scripts/config-helix.sh` — configures the Helix editor for this project's stack
+
 ## Schemas
 
 ### sales
