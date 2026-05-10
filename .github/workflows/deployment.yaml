@@ -5,9 +5,10 @@ on:
       - "v*.*.*"
 jobs:
   deploy:
-    uses: hcubasd/fuzzy-garbanzo/.github/workflows/fuzzy-garbanzo.yaml@v0.1.1
+    uses: hcubasd/fuzzy-garbanzo/.github/workflows/fuzzy-garbanzo.yaml@v0.1.3
     with:
       registry: ghcr.io
+      repository: curly-spoon
     secrets:
       username: ${{github.actor}}
       password: ${{secrets.GITHUB_TOKEN}}

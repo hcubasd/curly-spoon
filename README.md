@@ -40,6 +40,16 @@ The `migrate/migrate` container waits for Postgres to be healthy, then applies a
 
 Every push to any branch triggers the `integration` workflow (`.github/workflows/integration.yaml`), which runs `docker compose up --exit-code-from migrations` to verify all migrations apply cleanly against a fresh Postgres instance.
 
+## Deployment
+
+Pushing a `v*.*.*` tag triggers the `deployment` workflow, which builds a multi-arch Docker image (`linux/amd64`, `linux/arm64`) and pushes it to GHCR via the shared [fuzzy-garbanzo](https://github.com/hcubasd/fuzzy-garbanzo) workflow:
+
+```
+ghcr.io/hcubasd/curly-spoon:<version>
+```
+
+This image is used by the `upgraded-disco` k8s infra to run migrations as a Job on each release.
+
 ## Migration files
 
 Files follow the `{version}_{title}.{up|down}.sql` convention expected by `golang-migrate/migrate`.
@@ -220,4 +230,4 @@ erDiagram
     }
 ```
 
-> `tokens` lives in the default `public` schema. One row per provider (e.g. `pipedrive`, `netsuite`). Seeded manually with the initial token pair; workers refresh on every run. `refresh_token` is nullable to accommodate providers that use API keys instead of OAuth 2.
+> `tokens` lives in the default `public` schema. One row per provider (e.g. `rd_station`). Seeded manually with the initial token pair; workers refresh on every run. `refresh_token` is nullable to accommodate providers that use API keys instead of OAuth 2.
