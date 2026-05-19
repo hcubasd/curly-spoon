@@ -1,6 +1,6 @@
 # curly-spoon
 
-Database migrations for the **modest-galois** project. Manages schema evolution for the Postgres database using [golang-migrate/migrate](https://github.com/golang-migrate/migrate).
+Database migrations for the **[mlclogistica.app](https://mlclogistica.app)** project. Manages schema evolution for the Postgres database using [golang-migrate/migrate](https://github.com/golang-migrate/migrate).
 
 ## Structure
 
@@ -80,7 +80,7 @@ Helper scripts for setting up a development environment on a new machine:
 erDiagram
     CRM_CAMPAIGN {
         text id
-        text name
+        text title
         text description
         timestamptz created_at
         timestamptz updated_at
@@ -88,14 +88,14 @@ erDiagram
 
     CRM_LOSS_REASON {
         text id
-        text name
+        text reason
         timestamptz created_at
         timestamptz updated_at
     }
 
     CRM_PIPELINE {
         text id
-        text name
+        text title
         integer display_order
         timestamptz created_at
         timestamptz updated_at
@@ -103,7 +103,7 @@ erDiagram
 
     CRM_PIPELINE_STAGE {
         text id
-        text name
+        text title
         text description
         text objective
         integer display_order
@@ -113,7 +113,7 @@ erDiagram
 
     CRM_PRODUCT {
         text id
-        text name
+        text title
         text description
         numeric price
         timestamptz created_at
@@ -122,14 +122,14 @@ erDiagram
 
     CRM_INDUSTRY {
         text id
-        text name
+        text title
         timestamptz created_at
         timestamptz updated_at
     }
 
     CRM_SOURCE {
         text id
-        text name
+        text title
         text description
         timestamptz created_at
         timestamptz updated_at
@@ -137,14 +137,14 @@ erDiagram
 
     CRM_TEAM {
         text id
-        text name
+        text title
         timestamptz created_at
         timestamptz updated_at
     }
 
     CRM_USER {
         text id
-        text name
+        text full_name
         text email
         text phone
         timestamptz created_at
@@ -153,9 +153,9 @@ erDiagram
 
     CRM_ORGANIZATION {
         text id
-        text name
+        text title
         text description
-        text url
+        text website
         jsonb address
         timestamptz created_at
         timestamptz updated_at
@@ -163,7 +163,7 @@ erDiagram
 
     CRM_CONTACT {
         text id
-        text name
+        text full_name
         text job_title
         jsonb emails
         jsonb phones
@@ -174,8 +174,8 @@ erDiagram
 
     CRM_DEAL {
         text id
-        text name
-        numeric value
+        text title
+        numeric amount
         date expected_close_date
         integer rating
         text status
@@ -186,9 +186,9 @@ erDiagram
 
     CRM_TASK {
         text id
-        text name
+        text title
         text description
-        text type
+        text task_type
         text status
         timestamptz due_date
         timestamptz completed_at
@@ -223,7 +223,7 @@ erDiagram
 ```mermaid
 erDiagram
     TOKENS {
-        text provider PK
+        text provider_name PK
         text access_token
         text refresh_token
         timestamptz updated_at

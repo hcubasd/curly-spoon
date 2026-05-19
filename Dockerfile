@@ -1,2 +1,2 @@
-from migrate/migrate:4
-copy src/migrations /migrations
+FROM migrate/migrate:4
+COPY src/migrations /migrations

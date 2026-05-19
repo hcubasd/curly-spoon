@@ -1,13 +1,13 @@
 [[language]]
-name = "yaml"
-
-[[language]]
 name = "sql"
 language-servers = ["sqls"]
-formatter = {command = "sqlfluff", args = ["format", "--dialect", "postgres", "-"]}
+auto-format = true
+formatter = { command = "sqlfluff", args = [
+  "format",
+  "--dialect",
+  "postgres",
+  "-",
+] }
 
-[[language-server.yaml-language-server.config.yaml.schemas]]
+[language-server.yaml-language-server.config.yaml.schemas]
 "https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.yaml"
-
-[language-server.sqls]
-command = "sqls"
