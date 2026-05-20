@@ -5,7 +5,7 @@ on:
       - "v*.*.*"
 jobs:
   deploy:
-    uses: hcubasd/fuzzy-garbanzo/.github/workflows/fuzzy-garbanzo.yaml@v1.0.0
+    uses: hcubasd/fuzzy-garbanzo/.github/workflows/fuzzy-garbanzo.yaml@v1.0.1
     with:
       registry: ghcr.io
       repository: curly-spoon
