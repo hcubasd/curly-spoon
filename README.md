@@ -84,6 +84,7 @@ erDiagram
         text description
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_LOSS_REASON {
@@ -91,6 +92,7 @@ erDiagram
         text reason
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_PIPELINE {
@@ -99,6 +101,7 @@ erDiagram
         integer display_order
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_PIPELINE_STAGE {
@@ -109,6 +112,7 @@ erDiagram
         integer display_order
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_PRODUCT {
@@ -118,6 +122,7 @@ erDiagram
         numeric price
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_INDUSTRY {
@@ -125,6 +130,7 @@ erDiagram
         text title
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_SOURCE {
@@ -133,6 +139,7 @@ erDiagram
         text description
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_TEAM {
@@ -140,6 +147,7 @@ erDiagram
         text title
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_USER {
@@ -149,6 +157,7 @@ erDiagram
         text phone
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_ORGANIZATION {
@@ -159,6 +168,7 @@ erDiagram
         jsonb address
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_CONTACT {
@@ -170,6 +180,7 @@ erDiagram
         jsonb social_profiles
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_DEAL {
@@ -182,6 +193,7 @@ erDiagram
         timestamptz closed_at
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_TASK {
@@ -194,6 +206,7 @@ erDiagram
         timestamptz completed_at
         timestamptz created_at
         timestamptz updated_at
+        timestamptz synced_at
     }
 
     CRM_PIPELINE ||--o{ CRM_PIPELINE_STAGE : "has"

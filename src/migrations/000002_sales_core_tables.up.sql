@@ -3,14 +3,16 @@ CREATE TABLE sales.crm_campaigns (
     title text NOT NULL,
     description text,
     created_at timestamptz NOT NULL,
-    updated_at timestamptz NOT NULL
+    updated_at timestamptz NOT NULL,
+    synced_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE sales.crm_loss_reasons (
     id text PRIMARY KEY,
     reason text NOT NULL,
     created_at timestamptz NOT NULL,
-    updated_at timestamptz NOT NULL
+    updated_at timestamptz NOT NULL,
+    synced_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE sales.crm_pipelines (
@@ -18,7 +20,8 @@ CREATE TABLE sales.crm_pipelines (
     title text NOT NULL,
     display_order integer NOT NULL,
     created_at timestamptz NOT NULL,
-    updated_at timestamptz NOT NULL
+    updated_at timestamptz NOT NULL,
+    synced_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE sales.crm_products (
@@ -27,14 +30,16 @@ CREATE TABLE sales.crm_products (
     description text,
     price numeric(14, 2) NOT NULL,
     created_at timestamptz NOT NULL,
-    updated_at timestamptz NOT NULL
+    updated_at timestamptz NOT NULL,
+    synced_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE sales.crm_industries (
     id text PRIMARY KEY,
     title text NOT NULL,
     created_at timestamptz NOT NULL,
-    updated_at timestamptz NOT NULL
+    updated_at timestamptz NOT NULL,
+    synced_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE sales.crm_sources (
@@ -42,14 +47,16 @@ CREATE TABLE sales.crm_sources (
     title text NOT NULL,
     description text,
     created_at timestamptz NOT NULL,
-    updated_at timestamptz NOT NULL
+    updated_at timestamptz NOT NULL,
+    synced_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE sales.crm_teams (
     id text PRIMARY KEY,
     title text NOT NULL,
     created_at timestamptz NOT NULL,
-    updated_at timestamptz NOT NULL
+    updated_at timestamptz NOT NULL,
+    synced_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE sales.crm_users (
@@ -58,14 +65,15 @@ CREATE TABLE sales.crm_users (
     email text,
     phone text,
     created_at timestamptz NOT NULL,
-    updated_at timestamptz NOT NULL
+    updated_at timestamptz NOT NULL,
+    synced_at timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE INDEX ON sales.crm_campaigns (updated_at);
-CREATE INDEX ON sales.crm_loss_reasons (updated_at);
-CREATE INDEX ON sales.crm_pipelines (updated_at);
-CREATE INDEX ON sales.crm_products (updated_at);
-CREATE INDEX ON sales.crm_industries (updated_at);
-CREATE INDEX ON sales.crm_sources (updated_at);
-CREATE INDEX ON sales.crm_teams (updated_at);
-CREATE INDEX ON sales.crm_users (updated_at);
+CREATE INDEX ON sales.crm_campaigns (synced_at);
+CREATE INDEX ON sales.crm_loss_reasons (synced_at);
+CREATE INDEX ON sales.crm_pipelines (synced_at);
+CREATE INDEX ON sales.crm_products (synced_at);
+CREATE INDEX ON sales.crm_industries (synced_at);
+CREATE INDEX ON sales.crm_sources (synced_at);
+CREATE INDEX ON sales.crm_teams (synced_at);
+CREATE INDEX ON sales.crm_users (synced_at);
