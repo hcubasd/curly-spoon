@@ -1,6 +1,6 @@
 # curly-spoon
 
-Database migrations for the dashboard project of **[mlclogistica.app](https://mlclogistica.app)**. Manages schema evolution for the Postgres database using [golang-migrate/migrate](https://github.com/golang-migrate/migrate).
+Database migrations for the **[mlclogistica.app](https://mlclogistica.app)** project. Manages schema evolution for the Postgres database using [golang-migrate/migrate](https://github.com/golang-migrate/migrate).
 
 ## Structure
 
@@ -70,7 +70,7 @@ migrate -path src/migrations -database "postgres://..." down 1
 
 Helper scripts for setting up a development environment on a new machine:
 
-- `scripts/config-helix.sh` — configures the Helix editor for this project's stack
+- `scripts/config-helix.sh` — installs the Helix language servers and formatters used here for Bash, TOML, YAML, Docker, and SQL
 
 ## Schemas
 
