@@ -60,12 +60,3 @@ CREATE TABLE sales.crm_users (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL
 );
-
-CREATE INDEX ON sales.crm_campaigns (updated_at);
-CREATE INDEX ON sales.crm_loss_reasons (updated_at);
-CREATE INDEX ON sales.crm_pipelines (updated_at);
-CREATE INDEX ON sales.crm_products (updated_at);
-CREATE INDEX ON sales.crm_industries (updated_at);
-CREATE INDEX ON sales.crm_sources (updated_at);
-CREATE INDEX ON sales.crm_teams (updated_at);
-CREATE INDEX ON sales.crm_users (updated_at);

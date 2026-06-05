@@ -70,7 +70,7 @@ migrate -path src/migrations -database "postgres://..." down 1
 
 Helper scripts for setting up a development environment on a new machine:
 
-- `scripts/config-helix.sh` — configures the Helix editor for this project's stack
+- `scripts/config-helix.sh` — installs the Helix language servers and formatters used here for Bash, TOML, YAML, Docker, and SQL
 
 ## Schemas
 
@@ -196,24 +196,24 @@ erDiagram
         timestamptz updated_at
     }
 
-    CRM_PIPELINE ||--o{ CRM_PIPELINE_STAGE : "has"
-    CRM_PIPELINE_STAGE ||--o{ CRM_DEAL : "current_stage"
-    CRM_USER o|--o{ CRM_ORGANIZATION : "owns"
-    CRM_USER o|--o{ CRM_DEAL : "owns"
-    CRM_USER ||--o{ CRM_TASK : "created"
-    CRM_USER o|--o{ CRM_TASK : "completed"
-    CRM_SOURCE o|--o{ CRM_DEAL : "sourced_from"
-    CRM_CAMPAIGN o|--o{ CRM_DEAL : "attributed_to"
-    CRM_LOSS_REASON o|--o{ CRM_DEAL : "lost_by"
-    CRM_ORGANIZATION o|--o{ CRM_CONTACT : "has"
-    CRM_ORGANIZATION o|--o{ CRM_DEAL : "belongs_to"
-    CRM_DEAL }o--o{ CRM_PRODUCT : "involves"
-    CRM_DEAL o|--o{ CRM_TASK : "has"
-    CRM_DEAL }o--o{ CRM_CONTACT : "links"
-    CRM_ORGANIZATION }o--o{ CRM_INDUSTRY : "classified_as"
-    CRM_ORGANIZATION }o--o{ CRM_USER : "followed_by"
-    CRM_USER }o--o{ CRM_TEAM : "belongs_to"
-    CRM_TASK }o--o{ CRM_USER : "assigned_to"
+    CRM_PIPELINE ||--o{ CRM_PIPELINE_STAGE : ""
+    CRM_PIPELINE_STAGE ||--o{ CRM_DEAL : ""
+    CRM_USER |o--o{ CRM_ORGANIZATION : ""
+    CRM_USER |o--o{ CRM_DEAL : ""
+    CRM_USER ||--o{ CRM_TASK : ""
+    CRM_USER |o--o{ CRM_TASK : ""
+    CRM_SOURCE |o--o{ CRM_DEAL : ""
+    CRM_CAMPAIGN |o--o{ CRM_DEAL : ""
+    CRM_LOSS_REASON |o--o{ CRM_DEAL : ""
+    CRM_ORGANIZATION |o--o{ CRM_CONTACT : ""
+    CRM_ORGANIZATION |o--o{ CRM_DEAL : ""
+    CRM_DEAL }o--o{ CRM_PRODUCT : ""
+    CRM_DEAL |o--o{ CRM_TASK : ""
+    CRM_DEAL }o--o{ CRM_CONTACT : ""
+    CRM_ORGANIZATION }o--o{ CRM_INDUSTRY : ""
+    CRM_ORGANIZATION }o--o{ CRM_USER : ""
+    CRM_USER }o--o{ CRM_TEAM : ""
+    CRM_TASK }o--o{ CRM_USER : ""
 ```
 
 > All tables in this diagram live in the `sales` schema. IDs are `text` — the CRM's own IDs are used as internal primary keys.
